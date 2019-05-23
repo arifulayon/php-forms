@@ -61,16 +61,16 @@ function verify_input($data) {
 
 <h1> PHP Form</h1>
 <!--  HTML form for input information  -->
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
+<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>
     Name: <input type="text" name="name">
-        <span class="error">* <?php echo $nameError;?></span>
+        <span class="error"> <?php echo $nameError;?></span>
         <br><br>
     E-mail: <input type="text" name="email">
-        <span class="error">* <?php echo $emailError;?></span>
+        <span class="error"> <?php echo $emailError;?></span>
         <br><br>
     Gender: <input type="radio" name="gender" value="male">Male
         <input type="radio" name="gender" value="female">Female
-        <span class="error">* <?php echo $genderError;?></span>
+        <span class="error"> <?php echo $genderError;?></span>
         <br><br>
     Messege: <textarea name="messege" rows="5" cols="40"></textarea>
         <br><br>
