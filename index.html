@@ -2,43 +2,42 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>পিএইচপি ফর্ম ভ্যালিডেশন</title>
+        <title>PHP Form</title>
     </head>
     <body>
 
-<!-- এইচটিএমএল ফর্ম ভ্যালিডেশন এর জন্য  পিএইচপি স্ক্রিপ্ট -->
 <?php
-//ফাঁকা ভ্যারিয়েবল ডিক্লেয়ারেশন 
+//null variabel declearetion
 $name = $email = $gender = $messege = "";
 $nameError = $emailError = $genderError = "";
 
-//ফর্ম মেথড POST কিনা না চেক করে, POST হলে ভ্যালু সংগ্রহ করে।
+// Check post method, input post value
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // POST ভ্যালু ফাঁকা কিনা চেক করে এরর ম্যাসেজ তৈরি করে
     if (empty($_POST["name"])) {
-        $nameError = "নাম পূরন করা আবশ্যক";
+        $nameError = "You must have to fill up your name";
     } else {
         //ভ্যালু ফাঁকা না হলে ভ্যালিডিটি যাচাই করে
         $name = verify_input($_POST["name"]);
         // নামের মধ্যে শুধুমাত্র অক্ষর(letter) এবং whitespace রয়েছে কিনা চেক করে
         if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
-          $nameError = "শুধুমাত্র অক্ষর(letters) এবং white space ব্যবহার করুন";
+          $nameError = "Use only (letters) and white space ";
         }
       }
 
-    //একই ভাবে নিচের কোডসমূহ বুঝার জন্য উপরের কমেন্ট লক্ষ্য করুন 
+    
     if (empty($_POST["email"])) {
-        $emailError = "ইমেইল পূরন করা আবশ্যক";
+        $emailError = "You must fill up your email";
     } else {
         $email = verify_input($_POST["email"]);
-        // ইমেইলের ফরম্যাট সঠিক আছে কিনা  চেক করে
+        // Check valid email format
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-          $emailError = "ইমেইল ফরম্যাট ভ্যালিড নয়";
+          $emailError = "Invalid E-mail format";
         }
       }
     
     if (empty($_POST["gender"])) {
-		$genderError = "লিঙ্গ নির্ধারণ আবশ্যক";
+		$genderError = "You must select gender";
 	} else {
 		$gender = verify_input($_POST["gender"]);
 	}
@@ -50,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
 
 }
-//ফর্ম ডেটা ভ্যালিডেশন কোড
+// form data validation code
 function verify_input($data) {
 	$data = trim($data);
 	$data = stripslashes($data);
@@ -60,31 +59,23 @@ function verify_input($data) {
 ?>
 
 
-<h1> এইচটিএমএল ফর্ম ভ্যালিডেশন উদাহরণ</h1>
-<!--  তথ্য ইনপুট দেওয়ার জন্য এইচটিএমএল ফর্ম  -->
+<h1> PHP Form</h1>
+<!--  HTML form for input information  -->
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-    নামঃ <input type="text" name="name">
+    Name: <input type="text" name="name">
         <span class="error">* <?php echo $nameError;?></span>
         <br><br>
-    ই-মেইলঃ <input type="text" name="email">
+    E-mail: <input type="text" name="email">
         <span class="error">* <?php echo $emailError;?></span>
         <br><br>
-    লিঙ্গঃ <input type="radio" name="gender" value="male">পুরুষ
-        <input type="radio" name="gender" value="female">মহিলা
+    Gender: <input type="radio" name="gender" value="male">Male
+        <input type="radio" name="gender" value="female">Female
         <span class="error">* <?php echo $genderError;?></span>
         <br><br>
-    মেসেজঃ <textarea name="messege" rows="5" cols="40"></textarea>
+    Messege: <textarea name="messege" rows="5" cols="40"></textarea>
         <br><br>
         <input type="submit" name="submit" value="Submit">
 </form>
 
-<!-- ফর্ম এর মাধ্যমে ইনপুটকৃত তথ্যের আউটপুট -->
-<?php
-echo "<h2>আপনার ইনপুটকৃত তথ্যঃ</h2>";
-echo $name. "<br>";
-echo $email. "<br>";
-echo $gender. "<br>";
-echo $messege. "<br>";
-?>
 </body>
 </html>
